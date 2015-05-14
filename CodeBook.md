@@ -24,7 +24,7 @@ A full description of the study can be found at
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
 
 ## Modified Data
-The data output by running the mergedata() function after sourcing run_analysis.R, is a summary of means on a subset of means and standard deviation measures extracted from the original dataset, for each of 30 subjects in the study, on six experimental activities, across a range of 3-axial linear acceleration and 3-axial angular velocities produced by the accelerometer and gyroscope in a Samsung Galaxy S II warn by each subject.
+The data output by running the mergedata() function after sourcing run_analysis.R, is a summary of means on a subset of means and standard deviation measures extracted from the original dataset, for each of 30 subjects in the study, on six experimental activities, across a range of 3-axial linear acceleration and 3-axial angular velocities produced by the accelerometer and gyroscope in a Samsung Galaxy S II worn by each subject.
 
 ###Activities
 Numbers correspond to the original values given to the six activites, replaced in the modified data with the text description for each activity.
