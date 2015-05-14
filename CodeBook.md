@@ -1,7 +1,7 @@
 CodeBook.md
 
 # Data Processing
-Data processing is done by using the functions in run_analysis.R. 
+Data processing is done by using the functions in [run_analysis.R](https://github.com/gregrgay/asgmt1/blob/master/run_analysis.R). 
 
 ##Primary Function
 Run this function on its own at the RStudio command prompt after sourcing run_analysis.R
