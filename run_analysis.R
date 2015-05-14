@@ -1,12 +1,13 @@
 ##################
 # run_analysis.R
 
-# After sourcing this file, run mergefata() at the prompt to run the analysis
+# After sourcing this file, run mergedata() at the R Studio prompt to run the analysis
 
-# mergefata()
-# getmean_std()
-# name_activity()
-# getcol_labels()
+# mergedata()
+# getmean_std() # extract the means and standarad deviation measures from the original data
+# name_activity() # convert original activity data from integer to descriptive string
+# getcol_labels()   # attach the column labels from the features.txt file, and our own subject and activity labels 
+# summary_means ()  # generate a summary of means on the extracted data, and write to subject_activity_means.csv
 
 # 1. Merges the training and the test sets to create one data set.
 
@@ -103,9 +104,9 @@ summary_means <- function(xy_data){
     summaryData <- aggregate(.~subject + activity, xy_data, mean)
     
     # Order the data to make it more readable
-    summaryData <- summaryData[order(summaryData$subject,summaryData$activity),]
+    summaryData <<- summaryData[order(summaryData$subject,summaryData$activity),]
 
     # for the assignment create a clean CSV file with the summary of means for each subject
-    write.table(summaryData, file = "subject_activity_means.csv", sep = ",", row.names = FALSE)
+    #write.table(summaryData, file = "subject_activity_means.csv", sep = ",", row.names = FALSE)
 }
 

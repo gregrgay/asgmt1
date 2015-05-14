@@ -1,77 +1,139 @@
 #CodeBook.md
 
-This document describes the code inside `run_analysis.R`.
 
-The code is splitted (by comments) in some sections:
+## Data Processing
+Data processing is done by using the functions in run_analysis.R. 
 
-* Helper functions
-* Constants
-* Downloading and loading data
-* Manipulating data
-* Writing final data to CSV
+#Primary Function
+Run this function on its own at the RStudio command prompt after sourcing run_analysis.R
+*mergedata() # merges the test and train, X and y, datasets into one, and runs the Helper Functions
 
-## Helper functions
+#Helper Functions
+*getmean_std() # extract the means and standarad deviation measures from the original data
+*name_activity() # convert original activity data from integer to descriptive string
+*getcol_labels() # attach the column labels from the features.txt file, and our own subject and activity labels 
+*summary_means ()  # generate a summary of means on the extracted data, and write to subject_activity_means.csv
 
-Some functions to avoid code repetition and make the rest of code more clean.
+## Data
+# Original Data
+The original data is borrowed from Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto, at Smartlab Universitad degli Studi di Genova, Italy, who studied Human Activity Recognition Using Smartphones.
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-### fileJoin
+The original dataset, upon which run_analysis.R operates, is located in the dataset/ subdirectory
 
-Used to build file paths, it concatenates strings using a slash as separator.
+A full description of the study can be found at
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
+
+# Modified Data
+The data output by running the mergedata() function after sourcing run_analysis.R, is a summary of means on a subset of means and standard deviation measures extracted from the original dataset, for each of 30 subjects in the study, on six experimental activities, across a range of 3-axial linear acceleration and 3-axial angular velocities produced by the accelerometer and gyroscope in a Samsung Galaxy S II warn by each subject.
+
+##Activities
+Numbers correspond to the original values given to the six activites, replaced in the modified data with the text description for each activity.
+1 = WALKING 
+2 = WALKING_UPSTAIRS 
+3 = WALKING_DOWNSTAIRS 
+4 = SITTING 
+5 = STANDING 
+6 = LAYING
+
+## Variables
+The 88 variables made up of means and standard deviations from the original 561 variables, for each subject on each activity
+
+subject
+activity
+tBodyAcc-mean()-X
+tBodyAcc-mean()-Y
+tBodyAcc-mean()-Z
+tBodyAcc-std()-X
+tBodyAcc-std()-Y
+tBodyAcc-std()-Z
+tGravityAcc-mean()-X
+tGravityAcc-mean()-Y
+tGravityAcc-mean()-Z
+tGravityAcc-std()-X
+tGravityAcc-std()-Y
+tGravityAcc-std()-Z
+tBodyAccJerk-mean()-X
+tBodyAccJerk-mean()-Y
+tBodyAccJerk-mean()-Z
+tBodyAccJerk-std()-X
+tBodyAccJerk-std()-Y
+tBodyAccJerk-std()-Z
+tBodyGyro-mean()-X
+tBodyGyro-mean()-Y
+tBodyGyro-mean()-Z
+tBodyGyro-std()-X
+tBodyGyro-std()-Y
+tBodyGyro-std()-Z
+tBodyGyroJerk-mean()-X
+tBodyGyroJerk-mean()-Y
+tBodyGyroJerk-mean()-Z
+tBodyGyroJerk-std()-X
+tBodyGyroJerk-std()-Y
+tBodyGyroJerk-std()-Z
+tBodyAccMag-mean()
+tBodyAccMag-std()
+tGravityAccMag-mean()
+tGravityAccMag-std()
+tBodyAccJerkMag-mean()
+tBodyAccJerkMag-std()
+tBodyGyroMag-mean()
+tBodyGyroMag-std()
+tBodyGyroJerkMag-mean()
+tBodyGyroJerkMag-std()
+fBodyAcc-mean()-X
+fBodyAcc-mean()-Y
+fBodyAcc-mean()-Z
+fBodyAcc-std()-X
+fBodyAcc-std()-Y
+fBodyAcc-std()-Z
+fBodyAcc-meanFreq()-X
+fBodyAcc-meanFreq()-Y
+fBodyAcc-meanFreq()-Z
+fBodyAccJerk-mean()-X
+fBodyAccJerk-mean()-Y
+fBodyAccJerk-mean()-Z
+fBodyAccJerk-std()-X
+fBodyAccJerk-std()-Y
+fBodyAccJerk-std()-Z
+fBodyAccJerk-meanFreq()-X
+fBodyAccJerk-meanFreq()-Y
+fBodyAccJerk-meanFreq()-Z
+fBodyGyro-mean()-X
+fBodyGyro-mean()-Y
+fBodyGyro-mean()-Z
+fBodyGyro-std()-X
+fBodyGyro-std()-Y
+fBodyGyro-std()-Z
+fBodyGyro-meanFreq()-X
+fBodyGyro-meanFreq()-Y
+fBodyGyro-meanFreq()-Z
+fBodyAccMag-mean()
+fBodyAccMag-std()
+fBodyAccMag-meanFreq()
+fBodyBodyAccJerkMag-mean()
+fBodyBodyAccJerkMag-std()
+fBodyBodyAccJerkMag-meanFreq()
+fBodyBodyGyroMag-mean()
+fBodyBodyGyroMag-std()
+fBodyBodyGyroMag-meanFreq()
+fBodyBodyGyroJerkMag-mean()
+fBodyBodyGyroJerkMag-std()
+fBodyBodyGyroJerkMag-meanFreq()
+angle(tBodyAccMean,gravity)
+angle(tBodyAccJerkMean),gravityMean)
+angle(tBodyGyroMean,gravityMean)
+angle(tBodyGyroJerkMean,gravityMean)
+angle(X,gravityMean)
+angle(Y,gravityMean)
+angle(Z,gravityMean)
 
 
-### downloadToDataDir
-
-Downloads the given url to the given destiny file. It also creates `data` dir if it doesn't exist.
-
-### extractUciHarFile
-
-Extract a file from the zipped UCI HAR file.
-
-### uciHarDataFile
-
-Read dataset files from UCI HAR to given name and prefix. Know names are "train" and "test". Known prefixes are "X", "y" and "subject".
-
-Examples:
-
-* `UCI HAR Dataset/train/X_train.txt`
-* `UCI HAR Dataset/train/y_train.txt`
-* `UCI HAR Dataset/train/subject_train.txt`
-
-### loadUciHarData
-
-Loads data, labels and subjects from UCI HAR dataset to a `data.frame`.
-The returned `data.frame` contains a column `Activity` with labels integer codes, a column `Subject` with subjects integer codes and all other columns from data.
-
-## Constants
-
-Some fixed values like `dataDir`, `outputDir` and `outputFile` used in the other parts of the code.
-
-## Downloading and loading data
-
-* Downloads the UCI HAR zip file if it doesn't exist
-* Reads the activity labels to `activityLabels`
-* Reads the column names of data (a.k.a. features) to `features`
-* Reads the test `data.frame` to `testData`
-* Reads the trainning `data.frame` to `trainningData`
-
-## Manipulating data
-
-* Merges test data and trainning data to `allData`
-* Indentifies the mean and std columns (plus Activity and Subject) to `meanAndStdCols`
-* Extracts a new `data.frame` (called `meanAndStdData`) with only those columns from `meanAndStdCols`.
-* Summarizes `meanAndStdData` calculating the average for each column for each activity/subject pair to `meanAndStdAverages`.
-* Transforms the column Activity into a factor.
-* Uses `activityLabels` to name levels of Activity factor.
-
-At this point the final data frame `meanAndStdAverages` looks like this:
-
-    > head(meanAndStdAverages[, 1:5], n=3)
-      Activity Subject tBodyAcc.mean...X tBodyAcc.mean...Y tBodyAcc.mean...Z
-    1  WALKING       1         0.2773308       -0.01738382        -0.1111481
-    2  WALKING       2         0.2764266       -0.01859492        -0.1055004
-    3  WALKING       3         0.2755675       -0.01717678        -0.1126749
+## Sample Output
+    > head(summaryData[, 1:5], n=3)
+       subject activity tBodyAcc-mean()-X tBodyAcc-mean()-Y tBodyAcc-mean()-Z
+    1        1   LAYING         0.2725749       -0.01631775        -0.1071601
+    31       1  SITTING         0.2768757       -0.01452205        -0.1044127
+    61       1 STANDING         0.2789713       -0.01762506        -0.1076845
 
 
-## Writing final data to CSV
-
-Creates the output dir if it doesn't exist and writes `meanAndStdAverages` data frame to the ouputfile.
