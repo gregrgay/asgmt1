@@ -1,21 +1,20 @@
-#CodeBook.md
+CodeBook.md
 
-
-## Data Processing
+# Data Processing
 Data processing is done by using the functions in run_analysis.R. 
 
-#Primary Function
+##Primary Function
 Run this function on its own at the RStudio command prompt after sourcing run_analysis.R
 *mergedata() # merges the test and train, X and y, datasets into one, and runs the Helper Functions
 
-#Helper Functions
+##Helper Functions
 *getmean_std() # extract the means and standarad deviation measures from the original data
 *name_activity() # convert original activity data from integer to descriptive string
 *getcol_labels() # attach the column labels from the features.txt file, and our own subject and activity labels 
 *summary_means ()  # generate a summary of means on the extracted data, and write to subject_activity_means.csv
 
-## Data
-# Original Data
+# Data
+## Original Data
 The original data is borrowed from Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto, at Smartlab Universitad degli Studi di Genova, Italy, who studied Human Activity Recognition Using Smartphones.
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
@@ -24,19 +23,19 @@ The original dataset, upon which run_analysis.R operates, is located in the data
 A full description of the study can be found at
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
 
-# Modified Data
+## Modified Data
 The data output by running the mergedata() function after sourcing run_analysis.R, is a summary of means on a subset of means and standard deviation measures extracted from the original dataset, for each of 30 subjects in the study, on six experimental activities, across a range of 3-axial linear acceleration and 3-axial angular velocities produced by the accelerometer and gyroscope in a Samsung Galaxy S II warn by each subject.
 
-##Activities
+###Activities
 Numbers correspond to the original values given to the six activites, replaced in the modified data with the text description for each activity.
-1 = WALKING 
-2 = WALKING_UPSTAIRS 
-3 = WALKING_DOWNSTAIRS 
-4 = SITTING 
-5 = STANDING 
-6 = LAYING
+*1 = WALKING 
+*2 = WALKING_UPSTAIRS 
+*3 = WALKING_DOWNSTAIRS 
+*4 = SITTING 
+*5 = STANDING 
+*6 = LAYING
 
-## Variables
+### Variables
 The 88 variables made up of means and standard deviations from the original 561 variables, for each subject on each activity
 
 subject
@@ -129,7 +128,7 @@ angle(Y,gravityMean)
 angle(Z,gravityMean)
 
 
-## Sample Output
+### Sample Output
     > head(summaryData[, 1:5], n=3)
        subject activity tBodyAcc-mean()-X tBodyAcc-mean()-Y tBodyAcc-mean()-Z
     1        1   LAYING         0.2725749       -0.01631775        -0.1071601
