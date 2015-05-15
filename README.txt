@@ -1,9 +1,9 @@
 =================================================================
 Getting and Cleaning Data Course Project 
 =================================================================
-The data produced by run_analysis.R is a summary of means on a subset of means and standard deviation measures extracted from the original dataset, for each of 30 subjects in the study, on six experimental activities, across a range of 3-axial linear acceleration and 3-axial angular velocities produced by the accelerometer and gyroscope in a Samsung Galaxy S II worn by each subject.
+The data produced by run_analysis.R is a summary of means on a subset of means and standard deviation measures extracted from the original dataset, described below,  for each of 30 subjects in the study on six experimental activities, across a range of 3-axial linear acceleration and 3-axial angular velocities produced by the accelerometer and gyroscope in a Samsung Galaxy S II worn by each subject.
 
-The original dataset can be found in the "dataset"  directory.
+The original dataset can be found in the "dataset"  directory, and see the CodeBook.md for more about the original data, and the subset of that data used by run_analysis.R. 
 
 Read on for a description of the original study.
 

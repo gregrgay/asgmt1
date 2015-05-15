@@ -4,7 +4,7 @@
 # After sourcing this file, run mergedata() at the R Studio prompt to run the analysis
 
 # mergedata()  # merges the test and train, X and y, datasets into one, and runs the Helper Functions
-# getmean_std() # extract the means and standarad deviation measures from the original data
+# getmean_std() # extract the means and standard deviation measures from the original data
 # name_activity() # convert original activity data from integer to descriptive string
 # getcol_labels()   # attach the column labels from the features.txt file, and our own subject and activity labels 
 # summary_means ()  # generate a summary of means on the extracted data, and write to subject_activity_means.csv
@@ -69,16 +69,16 @@ mergedata<-function(){
 # 2. Extract only the measurements on the mean and standard deviation 
 #    for each measurement. 
 getmean_std <- function(data){
-        # get columns with the patter "mean" or "std" in their colname
-        mean_std <-new.data <- data[, grep('subject|activity|mean|std', names(data), ignore.case = TRUE)]
+        # get columns with the pattern "mean" or "std" in their colname
+        mean_std <- new.data <- data[, grep('subject|activity|mean|std', names(data), ignore.case = TRUE)]
         return(mean_std)
 }
 
 # 3. Use descriptive activity names to name the activities in the data set   
 name_activity <- function(xy_data){
     # a bit of a hack, but it works
-    # would be better if the activity label were pulled from the 
-    # activity_labels.txt file then loop through
+    # would be better if the activity labels were pulled from the 
+    # activity_labels.txt file then looped through
     xy_data$activity[xy_data$activity==1] <- "WALKING"
     xy_data$activity[xy_data$activity==2] <- "WALKING_UPSTAIRS"
     xy_data$activity[xy_data$activity==3] <- "WALKING_DOWNSTAIRS"
