@@ -1,13 +1,15 @@
 ##################
 # run_analysis.R
+# See README.txt additional details
 
 # After sourcing this file, run mergedata() at the R Studio prompt to run the analysis
+# data must be located in a dataset/ directory next to run_analysis.R
 
 # mergedata()  # merges the test and train, X and y, datasets into one, and runs the Helper Functions
 # getmean_std() # extract the means and standard deviation measures from the original data
 # name_activity() # convert original activity data from integer to descriptive string
 # getcol_labels()   # attach the column labels from the features.txt file, and our own subject and activity labels 
-# summary_means ()  # generate a summary of means on the extracted data, and write to subject_activity_means.csv
+# summary_means ()  # generate a summary of means on the extracted data, and write to subject_activity_means.txt as clean, space separated data 
 
 # 1. Merges the training and the test sets to create one data set.
 
@@ -36,7 +38,7 @@ mergedata<-function(){
         subject_train <<- read.table("./dataset/train/subject_train.txt", sep="")
     }
     
-    # combine the subject IDS for test and train sets into one
+    # combine the subject IDs for test and train sets into one
     subject_data = rbind(subject_test, subject_train)
 
     # combine 'x' data sets
@@ -54,7 +56,7 @@ mergedata<-function(){
     # replace interger in the activity column with its string alternative (see #3 below)
     named_xy_data <- name_activity(xy_data)
     
-    # extract only means measurements from the xy_data (see #2 below)
+    # extract only means and standard deviation measurements from the xy_data (see #2 below)
     mean_std <- getmean_std(named_xy_data)
     
     # get the means for each subject activity means (see #5 below)
@@ -68,13 +70,15 @@ mergedata<-function(){
 
 # 2. Extract only the measurements on the mean and standard deviation 
 #    for each measurement. 
-getmean_std <- function(data){
+getmean_std <- function(xy_data){
+    #     @param xy_data is a data.frame
         # get columns with the pattern "mean" or "std" in their colname
-        mean_std <- new.data <- data[, grep('subject|activity|mean|std', names(data), ignore.case = TRUE)]
+        mean_std <- new.xy_data <- xy_data[, grep('subject|activity|mean|std', names(xy_data), ignore.case = TRUE)]
         return(mean_std)
 }
 
 # 3. Use descriptive activity names to name the activities in the data set   
+#     @param xy_data is a data.frame
 name_activity <- function(xy_data){
     # a bit of a hack, but it works
     # would be better if the activity labels were pulled from the 
@@ -92,10 +96,10 @@ name_activity <- function(xy_data){
 #     @param xy_data is a data.frame
 getcol_labels<- function(xy_data){
     # get the list of column names from features.txt
-    features <- read.csv("./dataset/features.txt", sep=" ", quote = "", header=F)$V2 # we just want the second column $V2
-    feature_vector<-as.character(features)  # convert features data.frame into a character vector of column names
-    names(xy_data) <- c("subject", "activity", feature_vector) # prepend the first two column labels onto feature_vector and apply to xy_data
-    return(xy_data)
+    features <- read.csv("./dataset/features.txt", sep=" ", quote = "", header=F)$V2    # we just want the second column $V2
+    feature_vector<-as.character(features)                                              # convert features data.frame into a character vector of column names
+    names(xy_data) <- c("subject", "activity", feature_vector)                          # prepend the first two column labels onto feature_vector and apply to xy_data
+    return(xy_data)                                                                     # return the data.frame with column headers
 }
 
 # 5. From the data set in step 4, create a second, independent tidy data
@@ -112,5 +116,5 @@ summary_means <- function(xy_data){
     summaryData <- summaryData[order(summaryData$subject,summaryData$activity),]
     
     # for the assignment create a clean CSV file with the summary of means for each subject
-    write.table(summaryData, file = "subject_activity_means.csv", sep = ",", row.names = FALSE)
+    write.table(summaryData, file = "subject_activity_means.txt", sep = " ", row.names = FALSE)
 }

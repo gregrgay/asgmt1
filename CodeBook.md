@@ -1,17 +1,17 @@
 CodeBook.md
 
 # Data Processing
-Data processing is done by using the functions in [run_analysis.R](https://github.com/gregrgay/asgmt1/blob/master/run_analysis.R). 
+Data processing is done by using the functions in [run_analysis.R](https://github.com/gregrgay/asgmt1/blob/master/run_analysis.R). See the code documentation in run_analysis.R for detailed description of how the data was manipulated.
 
 ##Primary Function
-Run this function on its own at the RStudio command prompt after sourcing run_analysis.R
+After sourcing run_analysis.R in Rstudio, run the mergedata() function at the command prompt. That's it. Clean data file output to subject_activity_means.txt 
 * mergedata() # merges the test and train, X and y, datasets into one, and runs the Helper Functions
 
 ##Helper Functions
 * getmean_std() # extract the means and standarad deviation measures from the original data
 * name_activity() # convert original activity data from integer to descriptive string
 * getcol_labels() # attach the column labels from the features.txt file, and our own subject and activity labels 
-* summary_means ()  # generate a summary of means on the extracted data, and write to subject_activity_means.csv
+* summary_means ()  # generate a summary of means on the extracted data, and write to subject_activity_means.txt
 
 # Data
 ## Original Data
@@ -24,7 +24,7 @@ A full description of the study can be found at
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
 
 ## Modified Data
-The data output by running the mergedata() function after sourcing run_analysis.R, is a summary of means on a subset of means and standard deviation measures extracted from the original dataset, for each of 30 subjects in the study, on six experimental activities, across a range of 3-axial linear acceleration and 3-axial angular velocities produced by the accelerometer and gyroscope in a Samsung Galaxy S II worn by each subject.
+The data output by running the mergedata() function is a summary of means on a subset of means and standard deviation measures extracted from the original dataset, for each of 30 subjects in the study, on six experimental activities, across a range of 3-axial linear acceleration and 3-axial angular velocities produced by the accelerometer and gyroscope in a Samsung Galaxy S II worn by each subject.
 
 ###Activities
 Numbers correspond to the original values given to the six activites, replaced in the modified data with the text description for each activity.
